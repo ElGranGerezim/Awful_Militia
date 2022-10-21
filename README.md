@@ -19,7 +19,7 @@
 # Collaborators
 *Nazanal Laughlin
 *Thomas Scott
-
+* Ben Cornia
 {Provide a list of everyone on your team}
 
 # Useful Websites
