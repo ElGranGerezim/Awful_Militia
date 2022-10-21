@@ -18,7 +18,7 @@
 
 # Collaborators
 
-{Provide a list of everyone on your team}
+Thomas Jamieson
 
 # Useful Websites
 
