@@ -17,6 +17,7 @@
 {Describe the programming language that you used and any libraries.}
 
 # Collaborators
+*Nazanal Laughlin
 
 {Provide a list of everyone on your team}
 
