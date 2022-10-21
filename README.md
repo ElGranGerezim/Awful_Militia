@@ -18,6 +18,7 @@
 
 # Collaborators
 *Nazanal Laughlin
+*Thomas Scott
 
 {Provide a list of everyone on your team}
 
