@@ -17,10 +17,12 @@
 {Describe the programming language that you used and any libraries.}
 
 # Collaborators
-*Nazanal Laughlin
-*Thomas Scott
-*Thomas Jamieson
+* Nazanal Laughlin
+* Thomas Scott
+* Thomas Jamieson
+
 {Provide a list of everyone on your team}
+
 # Useful Websites
 
 {Make a list of websites that you found helpful in this project}
