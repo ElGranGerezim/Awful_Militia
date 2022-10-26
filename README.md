@@ -19,9 +19,8 @@
 # Collaborators
 *Nazanal Laughlin
 *Thomas Scott
-* Ben Cornia
+*Thomas Jamieson
 {Provide a list of everyone on your team}
-
 # Useful Websites
 
 {Make a list of websites that you found helpful in this project}
