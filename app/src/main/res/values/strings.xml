@@ -6,8 +6,8 @@
     <string name="second_fragment_label">Second Fragment</string>
     <string name="previous">Previous</string>
     <string name="hello_second_fragment">Hello second fragment. Arg: %1$s</string>
-    <string name="toast_button_text">Toast</string>
-    <string name="random_button_text">Random</string>
+    <string name="left_button_text">10</string>
+    <string name="mid_button_text">20</string>
+    <string name="right_button_text">30</string>
     <string name="text_view_text">0</string>
-    <string name="count_text">Count</string>
 </resources>
