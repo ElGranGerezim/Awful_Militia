@@ -1,4 +1,9 @@
 package com.example.mathattack
 
-class enemy {
+// Class to represent enemies
+open class Enemy {
+    private var health = 5
+
+    fun getHealth() : Int { return health }
+    fun takeDamage() { health -= 1}
 }

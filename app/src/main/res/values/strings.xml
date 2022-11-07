@@ -10,4 +10,9 @@
     <string name="mid_button_text">20</string>
     <string name="right_button_text">30</string>
     <string name="text_view_text">0</string>
+    <string name="refresh_button_text">New Question</string>
+    <string name="player_label_text">Player</string>
+    <string name="enemy_label_text">Enemy</string>
+    <string name="player_display_text">default</string>
+    <string name="enemy_display_text">default</string>
 </resources>
