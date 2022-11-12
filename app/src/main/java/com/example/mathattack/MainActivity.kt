@@ -1,23 +1,23 @@
 package com.example.mathattack
 
 import android.os.Bundle
-import com.google.android.material.snackbar.Snackbar
+import android.view.Menu
+import android.view.MenuItem
 import androidx.appcompat.app.AppCompatActivity
 import androidx.navigation.findNavController
 import androidx.navigation.ui.AppBarConfiguration
 import androidx.navigation.ui.navigateUp
 import androidx.navigation.ui.setupActionBarWithNavController
-import android.view.Menu
-import android.view.MenuItem
 import com.example.mathattack.database.HighScoreRepository
 import com.example.mathattack.databinding.ActivityMainBinding
+import com.google.android.material.snackbar.Snackbar
 
 class MainActivity : AppCompatActivity() {
 
     private lateinit var appBarConfiguration: AppBarConfiguration
     private lateinit var binding: ActivityMainBinding
 
-    val highScore : HighScoreRepository by lazy {
+    val highScore: HighScoreRepository by lazy {
         HighScoreRepository(this)
     }
 
@@ -34,7 +34,12 @@ class MainActivity : AppCompatActivity() {
         setupActionBarWithNavController(navController, appBarConfiguration)
 
         binding.fab.setOnClickListener { view ->
-            Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
+            val playerScore = highScore.getByUsername("Test Player")
+            Snackbar.make(
+                view,
+                "Player Score from Database: ${playerScore.score}",
+                Snackbar.LENGTH_LONG
+            )
                 .setAction("Action", null).show()
         }
     }
@@ -60,4 +65,9 @@ class MainActivity : AppCompatActivity() {
         return navController.navigateUp(appBarConfiguration)
                 || super.onSupportNavigateUp()
     }
+
+    fun getDb(): HighScoreRepository {
+        return highScore
+    }
+
 }

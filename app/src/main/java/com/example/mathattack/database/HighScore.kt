@@ -6,9 +6,9 @@ import androidx.room.*
 
 @Entity(tableName = "high_score")
 data class HighScore(
-    @PrimaryKey val uid: Int,
+    @PrimaryKey(autoGenerate = true) val uid: Int = 1,
     @ColumnInfo(name = "user_name") val name: String,
-    @ColumnInfo(name = "score") val score: Double,
+    @ColumnInfo(name = "score") val score: Int,
 )
 
 @Dao
@@ -22,7 +22,7 @@ interface HighScoreDao {
     @Query("SELECT * FROM high_score WHERE user_name LIKE :userName LIMIT 1")
     fun findByUserName(userName: String): HighScore
 
-    @Insert(onConflict = OnConflictStrategy.IGNORE)
+    @Insert(onConflict = OnConflictStrategy.REPLACE)
     fun insertAll(vararg highScores: HighScore)
 
     @Delete
