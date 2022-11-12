@@ -1,12 +1,13 @@
 package com.example.mathattack.database
 
 import android.content.Context
-import android.os.AsyncTask
+import android.util.Log
 
 // https://github.com/velmurugan-murugesan/Android-Example/tree/master/RoomAndroidExample/app/src/main/java/com/example/roomandroidexample
 
 class HighScoreRepository(context: Context) {
-    var db: HighScoreDao = AppDatabase.getInstance(context)?.HighScoreDao()!!
+    private var db: HighScoreDao = AppDatabase.getInstance(context)?.HighScoreDao()!!
+    private val TAG = "HighScoreRepository"
 
     fun getAllUsers(): List<HighScore> {
         return db.getAll()
@@ -20,15 +21,16 @@ class HighScoreRepository(context: Context) {
         return db.findByUserName(username)
     }
 
-    fun insertUser(highScore: HighScore) {
-        insertAsyncTask(db).execute(highScore)
+    fun insertHighScore(highScore: HighScore) {
+        Log.d(TAG, "Insert $highScore")
+        return db.insertAll(highScore)
     }
 
-    private class insertAsyncTask internal constructor(private val highScoreDao: HighScoreDao) :
-        AsyncTask<HighScore, Void, Void>() {
-        override fun doInBackground(vararg params: HighScore): Void? {
-            highScoreDao.insertAll(params[0])
-            return null
-        }
-    }
+//    private class insertAsyncTask internal constructor(private val highScoreDao: HighScoreDao) :
+//        AsyncTask<HighScore, Void, Void>() {
+//        override fun doInBackground(vararg params: HighScore): Void? {
+//            highScoreDao.insertAll(params[0])
+//            return null
+//        }
+//    }
 }
