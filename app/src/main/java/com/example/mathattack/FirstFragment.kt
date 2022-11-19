@@ -5,6 +5,10 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.core.os.bundleOf
+import androidx.fragment.app.setFragmentResult
+import androidx.fragment.app.setFragmentResultListener
+import androidx.navigation.fragment.findNavController
 import android.widget.Toast
 import androidx.fragment.app.Fragment
 import com.example.mathattack.database.HighScoreRepository
@@ -88,10 +92,12 @@ class FirstFragment : Fragment() {
 
         } else {
             player.takeDamage()
-            if (player.getHealth() < 1) {
-                // TODO: show game over
+            if (player.getHealth() == 0){
+                val result = 0
                 player.saveHighScore(this.scoreDb!!)
                 Toast.makeText(mainContext, "Player Died", Toast.LENGTH_LONG).show()
+                setFragmentResult("firstFragment", bundleOf("score" to result))
+                findNavController().navigate(R.id.action_FirstFragment_to_SecondFragment)
             }
         }
 
