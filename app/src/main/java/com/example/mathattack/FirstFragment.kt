@@ -113,6 +113,7 @@ class FirstFragment : Fragment() {
         binding.leftButton.text = answers[2].toString()
         binding.playerDisplay.text = player.getHealth().toString()
         binding.enemyDisplay.text = enemy.getHealth().toString()
+        binding.scoreDisplay.text = player.getScore().toString()
     }
 
     private fun submitAnswer(answer: Int) {
