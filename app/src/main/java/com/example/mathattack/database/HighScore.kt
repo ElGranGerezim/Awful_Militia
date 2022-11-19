@@ -6,7 +6,7 @@ import androidx.room.*
 
 @Entity(tableName = "high_score")
 data class HighScore(
-    @PrimaryKey(autoGenerate = true) val uid: Int = 1,
+    @PrimaryKey(autoGenerate = true) val uid: Int = 0,
     @ColumnInfo(name = "user_name") val name: String,
     @ColumnInfo(name = "score") val score: Int,
 )
