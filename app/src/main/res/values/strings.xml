@@ -15,4 +15,7 @@
     <string name="enemy_label_text">Enemy</string>
     <string name="player_display_text">default</string>
     <string name="enemy_display_text">default</string>
+    <string name="mainLabelText">Please help! We are under attack by the evil Math Monsters! Save Us!</string>
+    <string name="editTextHint">Name</string>
+    <string name="startButtonText">Start!</string>
 </resources>

@@ -5,6 +5,10 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.core.os.bundleOf
+import androidx.fragment.app.setFragmentResult
+import androidx.fragment.app.setFragmentResultListener
+import androidx.navigation.fragment.findNavController
 import com.example.mathattack.databinding.FragmentFirstBinding
 import com.google.android.material.snackbar.Snackbar
 import kotlin.random.Random
@@ -72,6 +76,11 @@ class FirstFragment : Fragment() {
             enemy.takeDamage()
         } else {
             player.takeDamage()
+            if (player.getHealth() == 0){
+                val result = 0
+                setFragmentResult("firstFragment", bundleOf("score" to result))
+                findNavController().navigate(R.id.action_FirstFragment_to_SecondFragment)
+            }
         }
 
         refreshQuestion()
