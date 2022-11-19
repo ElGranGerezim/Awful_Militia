@@ -24,7 +24,7 @@ class FirstFragment : Fragment() {
     private var question: Question = AdditionQuestion(arrayOf(0, 0));
     private var difficulty = 9;
     private val player = Player()
-    private val enemy = Enemy()
+    private var enemy = Enemy()
     private var mainContext: Context? = null
     private var scoreDb: HighScoreRepository? = null
 
@@ -72,6 +72,7 @@ class FirstFragment : Fragment() {
 
         binding.playerDisplay.text = player.getHealth().toString()
         binding.enemyDisplay.text = enemy.getHealth().toString()
+        binding.scoreDisplay.text = player.getScore().toString()
         refreshQuestion()
     }
 
@@ -80,7 +81,9 @@ class FirstFragment : Fragment() {
             enemy.takeDamage()
             if (enemy.getHealth() < 1) {
                 player.increaseScore()
-                Toast.makeText(mainContext, "Enemy Died: ${player.getScore()}", Toast.LENGTH_LONG).show()
+                Toast.makeText(mainContext, "Enemy Died: ${player.getScore()}", Toast.LENGTH_LONG)
+                    .show()
+                this.enemy = Enemy()
             }
 
         } else {

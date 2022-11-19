@@ -10,7 +10,7 @@ class Player {
     private var score = 0
     private val TAG = "Player"
 
-    public fun getHealth(): Int {
+    fun getHealth(): Int {
         return this.health
     }
 
@@ -18,20 +18,22 @@ class Player {
         return this.score
     }
 
-    public fun takeDamage() {
+    fun takeDamage() {
         this.health -= 1
         if (this.health < 0) {
             this.health = 0
         }
+        Log.d(TAG, "takeDamage ${this.health}")
     }
 
-    public fun saveHighScore(highScore: HighScoreRepository) {
+    fun saveHighScore(highScore: HighScoreRepository) {
         val newHighScore = HighScore(name = "Test Player", score = this.score)
         Log.d(this.TAG, "$newHighScore")
         highScore.insertHighScore(newHighScore)
     }
 
-    public fun increaseScore() {
+    fun increaseScore() {
         this.score += 1
+        Log.d(TAG, "increaseScore ${this.score}")
     }
 }

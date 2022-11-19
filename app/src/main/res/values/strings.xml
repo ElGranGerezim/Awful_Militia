@@ -15,4 +15,5 @@
     <string name="enemy_label_text">Enemy</string>
     <string name="player_display_text">default</string>
     <string name="enemy_display_text">default</string>
+    <string name="score">Score</string>
 </resources>

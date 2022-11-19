@@ -7,6 +7,17 @@
     tools:context=".FirstFragment">
 
     <TextView
+        android:id="@+id/score_label"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="164dp"
+        android:layout_marginTop="8dp"
+        android:text="@string/score"
+        android:textSize="30sp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
         android:id="@+id/textview_first"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -89,6 +100,16 @@
         android:text="@string/player_display_text"
         app:layout_constraintStart_toStartOf="@+id/player_label"
         app:layout_constraintTop_toBottomOf="@+id/player_label" />
+
+    <TextView
+        android:id="@+id/score_display"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/player_display_text"
+        app:layout_constraintEnd_toStartOf="@+id/enemy_display"
+        app:layout_constraintStart_toEndOf="@+id/player_display"
+        app:layout_constraintTop_toBottomOf="@+id/score_label"
+        tools:ignore="MissingConstraints" />
 
     <TextView
         android:id="@+id/enemy_display"
