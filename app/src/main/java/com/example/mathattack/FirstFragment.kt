@@ -5,12 +5,11 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.core.os.bundleOf
-import androidx.fragment.app.setFragmentResult
-import androidx.fragment.app.setFragmentResultListener
-import androidx.navigation.fragment.findNavController
 import android.widget.Toast
+import androidx.core.os.bundleOf
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.setFragmentResult
+import androidx.navigation.fragment.findNavController
 import com.example.mathattack.database.HighScoreRepository
 import com.example.mathattack.databinding.FragmentFirstBinding
 import kotlin.random.Random
@@ -81,7 +80,7 @@ class FirstFragment : Fragment() {
     }
 
     private fun selectAnswer(answer: Int) {
-        if (answer == question.GetCorrectAnswer()) {
+        if (answer == question.getCorrectAnswer()) {
             enemy.takeDamage()
             if (enemy.getHealth() < 1) {
                 player.increaseScore()
@@ -92,7 +91,7 @@ class FirstFragment : Fragment() {
 
         } else {
             player.takeDamage()
-            if (player.getHealth() == 0){
+            if (player.getHealth() == 0) {
                 val result = 0
                 player.saveHighScore(this.scoreDb!!)
                 Toast.makeText(mainContext, "Player Died", Toast.LENGTH_LONG).show()
@@ -112,8 +111,8 @@ class FirstFragment : Fragment() {
             true -> AdditionQuestion(numbs)
             false -> SubtractionQuestion(numbs);
         }
-        binding.textviewFirst.text = question.GetText()
-        val answers = question.GetAnswers()
+        binding.textviewFirst.text = question.getText()
+        val answers = question.getAnswers()
         binding.rightButton.text = answers[0].toString()
         binding.midButton.text = answers[1].toString()
         binding.leftButton.text = answers[2].toString()
@@ -123,7 +122,7 @@ class FirstFragment : Fragment() {
     }
 
     private fun submitAnswer(answer: Int) {
-        if (question.GetCorrectAnswer() == answer) {
+        if (question.getCorrectAnswer() == answer) {
             enemy.takeDamage()
             refreshQuestion()
         }

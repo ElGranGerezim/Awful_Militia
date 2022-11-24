@@ -19,4 +19,6 @@
     <string name="editTextHint">Name</string>
     <string name="startButtonText">Start!</string>
     <string name="score">Score</string>
+    <string name="highscores">HighScores</string>
+    <string name="list">list</string>
 </resources>

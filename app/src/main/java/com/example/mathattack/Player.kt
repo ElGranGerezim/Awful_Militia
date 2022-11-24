@@ -8,6 +8,7 @@ import com.example.mathattack.database.HighScoreRepository
 class Player {
     private var health = 5
     private var score = 0
+    private var name = "Test Player"
     private val TAG = "Player"
 
     fun getHealth(): Int {
@@ -27,7 +28,7 @@ class Player {
     }
 
     fun saveHighScore(highScore: HighScoreRepository) {
-        val newHighScore = HighScore(name = "Test Player", score = this.score)
+        val newHighScore = HighScore(name = this.name, score = this.score)
         Log.d(this.TAG, "$newHighScore")
         highScore.insertHighScore(newHighScore)
     }

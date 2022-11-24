@@ -9,7 +9,7 @@ class HighScoreRepository(context: Context) {
     private var db: HighScoreDao = AppDatabase.getInstance(context)?.HighScoreDao()!!
     private val TAG = "HighScoreRepository"
 
-    fun getAllUsers(): List<HighScore> {
+    fun getAllScores(): List<HighScore> {
         return db.getAll()
     }
 

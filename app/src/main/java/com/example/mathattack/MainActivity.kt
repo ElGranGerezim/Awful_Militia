@@ -66,8 +66,4 @@ class MainActivity : AppCompatActivity() {
                 || super.onSupportNavigateUp()
     }
 
-    fun getDb(): HighScoreRepository {
-        return highScore
-    }
-
 }
