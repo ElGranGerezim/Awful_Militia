@@ -12,6 +12,7 @@ import com.example.mathattack.database.HighScoreRepository
 import com.example.mathattack.databinding.ActivityMainBinding
 import com.google.android.material.snackbar.Snackbar
 
+
 class MainActivity : AppCompatActivity() {
 
     private lateinit var appBarConfiguration: AppBarConfiguration
@@ -65,5 +66,4 @@ class MainActivity : AppCompatActivity() {
         return navController.navigateUp(appBarConfiguration)
                 || super.onSupportNavigateUp()
     }
-
 }

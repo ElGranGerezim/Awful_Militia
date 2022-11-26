@@ -9,6 +9,7 @@ import android.widget.Toast
 import androidx.core.os.bundleOf
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.setFragmentResult
+import androidx.fragment.app.setFragmentResultListener
 import androidx.navigation.fragment.findNavController
 import com.example.mathattack.database.HighScoreRepository
 import com.example.mathattack.databinding.FragmentFirstBinding
@@ -35,9 +36,15 @@ class FirstFragment : Fragment() {
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
         scoreDb = (activity as MainActivity).highScore
         mainContext = this.activity?.applicationContext
+
+        setFragmentResultListener("startFragment") { key, bundle ->
+            val result = bundle.getString("player_name")
+            player.setName(result!!)
+            binding.playerLabel.text = player.getName()
+        }
 
         _binding = FragmentFirstBinding.inflate(inflater, container, false)
         return binding.root

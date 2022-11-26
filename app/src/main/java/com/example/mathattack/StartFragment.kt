@@ -1,6 +1,7 @@
 package com.example.mathattack
 
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -29,6 +30,8 @@ class StartFragment : Fragment() {
     ): View {
 
         _binding = FragmentStartBinding.inflate(inflater, container, false)
+
+
         return binding.root
 
     }
@@ -37,7 +40,8 @@ class StartFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
         binding.button.setOnClickListener() {
             val result = binding.editTextName.text.toString()
-            setFragmentResult("startFragment", bundleOf("name" to result))
+            Log.d("START_FRAGMENT", result)
+            setFragmentResult("startFragment", bundleOf("player_name" to result))
             findNavController().navigate(R.id.action_startFragment_to_FirstFragment)
         }
     }

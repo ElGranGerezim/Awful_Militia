@@ -8,7 +8,7 @@ import com.example.mathattack.database.HighScoreRepository
 class Player {
     private var health = 5
     private var score = 0
-    private var name = "Test Player"
+    private var name = ""
     private val TAG = "Player"
 
     fun getHealth(): Int {
@@ -17,6 +17,11 @@ class Player {
 
     fun getScore(): Int {
         return this.score
+    }
+
+    fun getName(): String {
+        Log.d(TAG, "getName")
+        return this.name
     }
 
     fun takeDamage() {
@@ -36,5 +41,9 @@ class Player {
     fun increaseScore() {
         this.score += 1
         Log.d(TAG, "increaseScore ${this.score}")
+    }
+
+    fun setName(name: String) {
+        this.name = name
     }
 }
