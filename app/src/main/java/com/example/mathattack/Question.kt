@@ -95,3 +95,19 @@ class SubtractionQuestion(numbs: Array<Int>) : Question(numbs) {
         return answer;
     }
 }
+
+// Returns new addition question limited by difficulty
+fun GenerateAdditionQuestion(difficulty: Int): AdditionQuestion{
+    var numbs = arrayOf<Int>()
+    numbs += Random.nextInt(difficulty + 1);
+    numbs += Random.nextInt(difficulty + 1)
+    return AdditionQuestion(numbs)
+}
+
+// Returns a new subtraction question limited by difficulty
+fun GenerateSubtractionQuestion(difficulty: Int): SubtractionQuestion{
+    var numbs = arrayOf<Int>()
+    numbs += Random.nextInt(difficulty + 1)
+    numbs += Random.nextInt(numbs[0] + 1)
+    return SubtractionQuestion(numbs)
+}

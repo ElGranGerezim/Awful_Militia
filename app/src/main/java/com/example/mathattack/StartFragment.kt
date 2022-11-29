@@ -40,8 +40,12 @@ class StartFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
         binding.button.setOnClickListener() {
             val result = binding.editTextName.text.toString()
-            Log.d("START_FRAGMENT", result)
-            setFragmentResult("startFragment", bundleOf("player_name" to result))
+            val mode = when(binding.modeRadioGroup.checkedRadioButtonId){
+                binding.modeAdditionRadio.id -> 0
+                binding.modeSubtractionRadio.id -> 1
+                else -> -1
+            }
+            setFragmentResult("startFragment", bundleOf("player_name" to result, "question_mode" to mode))
             findNavController().navigate(R.id.action_startFragment_to_FirstFragment)
         }
     }

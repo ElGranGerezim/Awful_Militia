@@ -2,6 +2,7 @@ package com.example.mathattack
 
 import android.content.Context
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -25,10 +26,10 @@ class FirstFragment : Fragment() {
     // This property is only valid between onCreateView and
     // onDestroyView.
     private val binding get() = _binding!!
-    private var question: Question = AdditionQuestion(arrayOf(0, 0));
-    private var difficulty = 9;
+    private var difficulty = 9
+    private var qMode = -1
     private val player = Player()
-    private var enemy = Enemy()
+    private lateinit var enemy: Enemy
     private var mainContext: Context? = null
     private var scoreDb: HighScoreRepository? = null
 
@@ -41,9 +42,15 @@ class FirstFragment : Fragment() {
         mainContext = this.activity?.applicationContext
 
         setFragmentResultListener("startFragment") { key, bundle ->
-            val result = bundle.getString("player_name")
-            player.setName(result!!)
+            val name = bundle.getString("player_name")
+            val mode = bundle.getInt("question_mode")
+            player.setName(name!!)
+            Log.d("FIRST_FRAG", mode.toString())
+            qMode = mode
+            Log.d("FIRST_FRAG", qMode.toString())
             binding.playerLabel.text = player.getName()
+            refreshEnemy()
+            refreshQuestion()
         }
 
         _binding = FragmentFirstBinding.inflate(inflater, container, false)
@@ -80,20 +87,16 @@ class FirstFragment : Fragment() {
             refreshQuestion()
         }
 
-        binding.playerDisplay.text = player.getHealth().toString()
-        binding.enemyDisplay.text = enemy.getHealth().toString()
-        binding.scoreDisplay.text = player.getScore().toString()
-        refreshQuestion()
     }
 
     private fun selectAnswer(answer: Int) {
-        if (answer == question.getCorrectAnswer()) {
+        if (answer == enemy.GetQuestion().getCorrectAnswer()) {
             enemy.takeDamage()
             if (enemy.getHealth() < 1) {
                 player.increaseScore()
                 Toast.makeText(mainContext, "Enemy Died: ${player.getScore()}", Toast.LENGTH_LONG)
                     .show()
-                this.enemy = Enemy()
+                refreshEnemy()
             }
 
         } else {
@@ -111,15 +114,9 @@ class FirstFragment : Fragment() {
     }
 
     private fun refreshQuestion() {
-        var numbs = arrayOf<Int>()
-        numbs += Random.nextInt(difficulty + 1);
-        numbs += Random.nextInt(difficulty + 1)
-        question = when (Random.nextBoolean()) {
-            true -> AdditionQuestion(numbs)
-            false -> SubtractionQuestion(numbs);
-        }
-        binding.textviewFirst.text = question.getText()
-        val answers = question.getAnswers()
+        enemy.newQuestion(difficulty)
+        binding.textviewFirst.text = enemy.GetQuestion().getText()
+        val answers = enemy.GetQuestion().getAnswers()
         binding.rightButton.text = answers[0].toString()
         binding.midButton.text = answers[1].toString()
         binding.leftButton.text = answers[2].toString()
@@ -128,10 +125,11 @@ class FirstFragment : Fragment() {
         binding.scoreDisplay.text = player.getScore().toString()
     }
 
-    private fun submitAnswer(answer: Int) {
-        if (question.getCorrectAnswer() == answer) {
-            enemy.takeDamage()
-            refreshQuestion()
+    private fun refreshEnemy(){
+        enemy = when (qMode) {
+            0    -> AdditionEnemy(difficulty)
+            1    -> SubtractionEnemy(difficulty)
+            else -> SuperEnemy(difficulty)
         }
     }
 
