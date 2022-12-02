@@ -4,7 +4,7 @@
     <!-- Strings used for fragments for navigation -->
     <string name="first_fragment_label">First Fragment</string>
     <string name="second_fragment_label">Second Fragment</string>
-    <string name="previous">Previous</string>
+    <string name="previous">Main Menu</string>
     <string name="hello_second_fragment">Hello second fragment. Arg: %1$s</string>
     <string name="left_button_text">10</string>
     <string name="mid_button_text">20</string>
@@ -21,4 +21,8 @@
     <string name="score">Score</string>
     <string name="highscores">HighScores</string>
     <string name="list">list</string>
+    <string name="modeAddText">Addition Armada</string>
+    <string name="modeSubtractionText">Minus Militia</string>
+    <string name="modeSuperText">Super Special Forces</string>
+    <string name="modeTutorialText">Choose which army you will assault today.</string>
 </resources>
