@@ -6,7 +6,6 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Toast
 import androidx.core.os.bundleOf
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.setFragmentResult
@@ -14,7 +13,6 @@ import androidx.fragment.app.setFragmentResultListener
 import androidx.navigation.fragment.findNavController
 import com.example.mathattack.database.HighScoreRepository
 import com.example.mathattack.databinding.FragmentFirstBinding
-import kotlin.random.Random
 
 /**
  * A simple [Fragment] subclass as the default destination in the navigation.
@@ -37,6 +35,7 @@ class FirstFragment : Fragment() {
 
     // Initiate the enemy class
     private lateinit var enemy: Enemy
+
     // Get the MainActivity context for movement of data between fragments and more.
     private var mainContext: Context? = null
 
@@ -52,6 +51,7 @@ class FirstFragment : Fragment() {
         scoreDb = (activity as MainActivity).highScore
         // Set Main Activity Context
         mainContext = this.activity?.applicationContext
+
 
         // Set listener for the first fragment to receive any stored data from the start fragment.
         setFragmentResultListener("startFragment") { key, bundle ->
@@ -125,7 +125,7 @@ class FirstFragment : Fragment() {
             enemy.takeDamage()
             if (enemy.getHealth() < 1) {
                 player.increaseScore()
-                this.enemy = Enemy()
+                refreshEnemy()
             }
 
         } else {
@@ -159,10 +159,10 @@ class FirstFragment : Fragment() {
         binding.scoreDisplay.text = player.getScore().toString()
     }
 
-    private fun refreshEnemy(){
+    private fun refreshEnemy() {
         enemy = when (qMode) {
-            0    -> AdditionEnemy(difficulty)
-            1    -> SubtractionEnemy(difficulty)
+            0 -> AdditionEnemy(difficulty)
+            1 -> SubtractionEnemy(difficulty)
             else -> SuperEnemy(difficulty)
         }
     }
