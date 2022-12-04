@@ -38,9 +38,11 @@ class StartFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        // Set a button to get the player's name.
         binding.button.setOnClickListener() {
             val result = binding.editTextName.text.toString()
             Log.d("START_FRAGMENT", result)
+            // Set player name to be accessible to other fragments.
             setFragmentResult("startFragment", bundleOf("player_name" to result))
             findNavController().navigate(R.id.action_startFragment_to_FirstFragment)
         }

@@ -1,10 +1,21 @@
 package com.example.mathattack
 
-// Class to represent enemies
+/**
+ * A class representing the enemy the payer will be fighting against.
+ */
 open class Enemy {
     private var health = 5
 
-    fun getHealth() : Int { return health }
+    /**
+     * Gets the health of the enemy.
+     */
+    fun getHealth(): Int {
+        return health
+    }
+
+    /**
+     * Reduce the health of the enemy by one point.
+     */
     fun takeDamage() {
         health -= 1
         if (this.health < 0) {

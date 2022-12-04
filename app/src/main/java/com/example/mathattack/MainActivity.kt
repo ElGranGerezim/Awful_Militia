@@ -10,7 +10,6 @@ import androidx.navigation.ui.navigateUp
 import androidx.navigation.ui.setupActionBarWithNavController
 import com.example.mathattack.database.HighScoreRepository
 import com.example.mathattack.databinding.ActivityMainBinding
-import com.google.android.material.snackbar.Snackbar
 
 
 class MainActivity : AppCompatActivity() {
@@ -18,6 +17,7 @@ class MainActivity : AppCompatActivity() {
     private lateinit var appBarConfiguration: AppBarConfiguration
     private lateinit var binding: ActivityMainBinding
 
+    // Load in high score repository to interact with database.
     val highScore: HighScoreRepository by lazy {
         HighScoreRepository(this)
     }
@@ -34,15 +34,6 @@ class MainActivity : AppCompatActivity() {
         appBarConfiguration = AppBarConfiguration(navController.graph)
         setupActionBarWithNavController(navController, appBarConfiguration)
 
-        binding.fab.setOnClickListener { view ->
-            val playerScore = highScore.getByUsername("Test Player")
-            Snackbar.make(
-                view,
-                "Player Score from Database: ${playerScore.score}",
-                Snackbar.LENGTH_LONG
-            )
-                .setAction("Action", null).show()
-        }
     }
 
     override fun onCreateOptionsMenu(menu: Menu): Boolean {

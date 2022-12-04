@@ -5,7 +5,6 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Toast
 import androidx.core.os.bundleOf
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.setFragmentResult
@@ -25,11 +24,21 @@ class FirstFragment : Fragment() {
     // This property is only valid between onCreateView and
     // onDestroyView.
     private val binding get() = _binding!!
+
+    // Get an array of addition questions
     private var question: Question = AdditionQuestion(arrayOf(0, 0));
     private var difficulty = 9;
+
+    // Initiate the player class
     private val player = Player()
+
+    // Initiate the enemy class
     private var enemy = Enemy()
+
+    // Get the MainActivity context for movement of data between fragments and more.
     private var mainContext: Context? = null
+
+    // Prepare to load in High Score Repository for queries and insets into the database.
     private var scoreDb: HighScoreRepository? = null
 
 
@@ -37,10 +46,13 @@ class FirstFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
+        // Get database session from MainActivity
         scoreDb = (activity as MainActivity).highScore
+        // Set Main Activity Context
         mainContext = this.activity?.applicationContext
 
-        setFragmentResultListener("startFragment") { key, bundle ->
+        // Set listener for the first fragment to receive any stored data from the start fragment.
+        setFragmentResultListener("startFragment") { _, bundle ->
             val result = bundle.getString("player_name")
             player.setName(result!!)
             binding.playerLabel.text = player.getName()
@@ -54,6 +66,7 @@ class FirstFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        // Add a button to screen that will display a possible answer to the question.
         binding.rightButton.setOnClickListener {
             //Snackbar.make(view, binding.rightButton.text, Snackbar.LENGTH_LONG)
             //    .setAction("Action", null).show()
@@ -62,6 +75,7 @@ class FirstFragment : Fragment() {
             selectAnswer(answer)
         }
 
+        // Add a button to screen left of previous button containing a possible answer.
         binding.leftButton.setOnClickListener {
             //Snackbar.make(view, binding.leftButton.text, Snackbar.LENGTH_LONG)
             //    .setAction("Action", null).show()
@@ -69,6 +83,7 @@ class FirstFragment : Fragment() {
             selectAnswer(answer)
         }
 
+        // Add a button between previous buttons containing a possible answer.
         binding.midButton.setOnClickListener {
             //Snackbar.make(view, binding.midButton.text, Snackbar.LENGTH_LONG)
             //    .setAction("Action", null).show()
@@ -76,40 +91,53 @@ class FirstFragment : Fragment() {
             selectAnswer(answer)
         }
 
+        // Add button to refresh screen and show a new question.
         binding.refreshButton.setOnClickListener {
             refreshQuestion()
         }
 
+        // Bind values to titles at top of string for player name, score and enemy health.
         binding.playerDisplay.text = player.getHealth().toString()
         binding.enemyDisplay.text = enemy.getHealth().toString()
         binding.scoreDisplay.text = player.getScore().toString()
+        // Show initial question.
         refreshQuestion()
     }
 
+    /**
+     * When an answer is selected check if it is the correct answer and perform an action based on
+     * wether the choice was correct or not.
+     *
+     * @param answer: Int => The chosen answer by the user.
+     */
     private fun selectAnswer(answer: Int) {
+        // If the answer is correct, damage the enemy.
         if (answer == question.getCorrectAnswer()) {
             enemy.takeDamage()
             if (enemy.getHealth() < 1) {
                 player.increaseScore()
-                Toast.makeText(mainContext, "Enemy Died: ${player.getScore()}", Toast.LENGTH_LONG)
-                    .show()
                 this.enemy = Enemy()
             }
 
         } else {
+            // If the answer is incorrect damage the player
             player.takeDamage()
+            // If the player health is zero, save high score and move to game over screen.
             if (player.getHealth() == 0) {
                 val result = 0
                 player.saveHighScore(this.scoreDb!!)
-                Toast.makeText(mainContext, "Player Died", Toast.LENGTH_LONG).show()
                 setFragmentResult("firstFragment", bundleOf("score" to result))
                 findNavController().navigate(R.id.action_FirstFragment_to_SecondFragment)
             }
         }
 
+        // Show new question.
         refreshQuestion()
     }
 
+    /**
+     * Generate a new question for the Player to answer.
+     */
     private fun refreshQuestion() {
         var numbs = arrayOf<Int>()
         numbs += Random.nextInt(difficulty + 1);
@@ -126,13 +154,6 @@ class FirstFragment : Fragment() {
         binding.playerDisplay.text = player.getHealth().toString()
         binding.enemyDisplay.text = enemy.getHealth().toString()
         binding.scoreDisplay.text = player.getScore().toString()
-    }
-
-    private fun submitAnswer(answer: Int) {
-        if (question.getCorrectAnswer() == answer) {
-            enemy.takeDamage()
-            refreshQuestion()
-        }
     }
 
     override fun onDestroyView() {

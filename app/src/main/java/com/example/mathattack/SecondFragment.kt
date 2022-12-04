@@ -22,7 +22,11 @@ class SecondFragment : Fragment() {
     // This property is only valid between onCreateView and
     // onDestroyView.
     private val binding get() = _binding!!
+
+    // Get the main context from MainActivity.
     private var mainContext: Context? = null
+
+    // Initiate the database for high scores.
     private var scoreDb: HighScoreRepository? = null
 
     override fun onCreateView(
@@ -31,28 +35,37 @@ class SecondFragment : Fragment() {
     ): View {
 
         _binding = FragmentSecondBinding.inflate(inflater, container, false)
+        // Get database session.
         scoreDb = (activity as MainActivity).highScore
+        // Get context from MainActivity.
         mainContext = this.activity?.applicationContext
 
+        // Set up an adapter to display a list of items on the screen.
         val arrayAdapter: ArrayAdapter<*>
         val highScores = scoreDb!!.getAllScores()
+        var formattedScore: MutableList<String?> = mutableListOf()
+        for (score in highScores) {
+            formattedScore.add(
+                "${score.name}: ${score.score}"
+            )
+        }
         val listView = binding.highScoreList
         arrayAdapter = ArrayAdapter(
             mainContext!!,
             android.R.layout.simple_list_item_1, // XML item layout id. https://guides.codepath.com/android/Using-an-ArrayAdapter-with-ListView
-            highScores
+            formattedScore
         )
         listView.adapter = arrayAdapter
 
 
+        // Get the name of player from start fragment.
         setFragmentResultListener("startFragment") { _, bundle ->
             val name = bundle.getString("name")
-            println("$name received")
         }
 
+        // Get the score of the player from first fragment.
         setFragmentResultListener("firstFragment") { _, bundle ->
             val score = bundle.getInt("score")
-            println("$score received")
         }
 
 

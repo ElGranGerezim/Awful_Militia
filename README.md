@@ -1,37 +1,27 @@
 # Awful_Militia
 
-# Overview
+## Overview
 
-{Important!  Do not say in this section that this is college assignment.}
-
-{Provide a description of your team project.  Describe how to use the software.}
-
-{If this is an online class, then provide a link to your YouTube demonstration.  It should be a 4-5 minute demo of the software running and a walkthrough of the code.}
+Welcome to Math Attack! This game will use basic math equations to defeat an enemy. If you answer a question wrong the player will lose health. High Scores are stored so feel free to challenge you friends on how far you will go.
 
 [Software Demo Video](http://youtube.link.goes.here)
 
-# Development Environment
+## Development Environment
 
-{Describe the tools that you used to develop the software}
+Android Studio and Kotlin were used in the creation of this product. The Room database ORM was used for storing everyone's High Scores.
 
-{Describe the programming language that you used and any libraries.}
+## Collaborators
 
-# Collaborators
 * Nazanal Laughlin
 * Thomas Scott
-* Thomas Jamieson
 
-{Provide a list of everyone on your team}
+## Useful Websites
 
-# Useful Websites
+* [Kotlin Docs](https://kotlinlang.org/doc)
+* [Android Studio Training](https://developer.android.com/training)
 
-{Make a list of websites that you found helpful in this project}
-* [Web Site Name](http://url.link.goes.here)
-* [Web Site Name](http://url.link.goes.here)
+## Future Work
 
-# Future Work
-
-{Make a list of things that you need to fix, improve, and add in the future.}
-* Item 1
-* Item 2
-* Item 3
+* Final Boss Battle
+* Sound Effects
+* More Equations
