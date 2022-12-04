@@ -2,9 +2,11 @@ package com.example.mathattack
 
 import android.content.Context
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.core.os.bundleOf
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.setFragmentResult
@@ -24,17 +26,17 @@ class FirstFragment : Fragment() {
     // This property is only valid between onCreateView and
     // onDestroyView.
     private val binding get() = _binding!!
+    private var difficulty = 9
+    private var qMode = -1
 
     // Get an array of addition questions
     private var question: Question = AdditionQuestion(arrayOf(0, 0));
-    private var difficulty = 9;
 
     // Initiate the player class
     private val player = Player()
 
     // Initiate the enemy class
-    private var enemy = Enemy()
-
+    private lateinit var enemy: Enemy
     // Get the MainActivity context for movement of data between fragments and more.
     private var mainContext: Context? = null
 
@@ -52,10 +54,16 @@ class FirstFragment : Fragment() {
         mainContext = this.activity?.applicationContext
 
         // Set listener for the first fragment to receive any stored data from the start fragment.
-        setFragmentResultListener("startFragment") { _, bundle ->
-            val result = bundle.getString("player_name")
-            player.setName(result!!)
+        setFragmentResultListener("startFragment") { key, bundle ->
+            val name = bundle.getString("player_name")
+            val mode = bundle.getInt("question_mode")
+            player.setName(name!!)
+            Log.d("FIRST_FRAG", mode.toString())
+            qMode = mode
+            Log.d("FIRST_FRAG", qMode.toString())
             binding.playerLabel.text = player.getName()
+            refreshEnemy()
+            refreshQuestion()
         }
 
         _binding = FragmentFirstBinding.inflate(inflater, container, false)
@@ -111,8 +119,9 @@ class FirstFragment : Fragment() {
      * @param answer: Int => The chosen answer by the user.
      */
     private fun selectAnswer(answer: Int) {
+
         // If the answer is correct, damage the enemy.
-        if (answer == question.getCorrectAnswer()) {
+        if (answer == enemy.GetQuestion().getCorrectAnswer()) {
             enemy.takeDamage()
             if (enemy.getHealth() < 1) {
                 player.increaseScore()
@@ -139,21 +148,23 @@ class FirstFragment : Fragment() {
      * Generate a new question for the Player to answer.
      */
     private fun refreshQuestion() {
-        var numbs = arrayOf<Int>()
-        numbs += Random.nextInt(difficulty + 1);
-        numbs += Random.nextInt(difficulty + 1)
-        question = when (Random.nextBoolean()) {
-            true -> AdditionQuestion(numbs)
-            false -> SubtractionQuestion(numbs);
-        }
-        binding.textviewFirst.text = question.getText()
-        val answers = question.getAnswers()
+        enemy.newQuestion(difficulty)
+        binding.textviewFirst.text = enemy.GetQuestion().getText()
+        val answers = enemy.GetQuestion().getAnswers()
         binding.rightButton.text = answers[0].toString()
         binding.midButton.text = answers[1].toString()
         binding.leftButton.text = answers[2].toString()
         binding.playerDisplay.text = player.getHealth().toString()
         binding.enemyDisplay.text = enemy.getHealth().toString()
         binding.scoreDisplay.text = player.getScore().toString()
+    }
+
+    private fun refreshEnemy(){
+        enemy = when (qMode) {
+            0    -> AdditionEnemy(difficulty)
+            1    -> SubtractionEnemy(difficulty)
+            else -> SuperEnemy(difficulty)
+        }
     }
 
     override fun onDestroyView() {

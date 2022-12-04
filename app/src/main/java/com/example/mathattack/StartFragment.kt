@@ -42,8 +42,13 @@ class StartFragment : Fragment() {
         binding.button.setOnClickListener() {
             val result = binding.editTextName.text.toString()
             Log.d("START_FRAGMENT", result)
+            val mode = when(binding.modeRadioGroup.checkedRadioButtonId){
+                binding.modeAdditionRadio.id -> 0
+                binding.modeSubtractionRadio.id -> 1
+                else -> -1
+            }
             // Set player name to be accessible to other fragments.
-            setFragmentResult("startFragment", bundleOf("player_name" to result))
+            setFragmentResult("startFragment", bundleOf("player_name" to result, "question_mode" to mode))
             findNavController().navigate(R.id.action_startFragment_to_FirstFragment)
         }
     }
