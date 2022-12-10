@@ -99,7 +99,7 @@
         android:layout_height="wrap_content"
         android:text="@string/player_display_text"
         app:layout_constraintStart_toStartOf="@+id/player_label"
-        app:layout_constraintTop_toBottomOf="@+id/player_label" />
+        app:layout_constraintTop_toBottomOf="@+id/playerHealthBar" />
 
     <TextView
         android:id="@+id/score_display"
@@ -117,5 +117,24 @@
         android:layout_height="wrap_content"
         android:text="@string/enemy_display_text"
         app:layout_constraintEnd_toEndOf="@+id/enemy_label"
+        app:layout_constraintTop_toBottomOf="@+id/enemyHealthBar" />
+
+    <ProgressBar
+        android:id="@+id/playerHealthBar"
+        style="?android:attr/progressBarStyleHorizontal"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        app:layout_constraintEnd_toEndOf="@+id/player_label"
+        app:layout_constraintStart_toStartOf="@+id/player_label"
+        app:layout_constraintTop_toBottomOf="@+id/player_label" />
+
+    <ProgressBar
+        android:id="@+id/enemyHealthBar"
+        style="@android:style/Widget.DeviceDefault.Light.ProgressBar.Horizontal"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:rotationY="180"
+        app:layout_constraintEnd_toEndOf="@+id/enemy_label"
+        app:layout_constraintStart_toStartOf="@+id/enemy_label"
         app:layout_constraintTop_toBottomOf="@+id/enemy_label" />
 </androidx.constraintlayout.widget.ConstraintLayout>

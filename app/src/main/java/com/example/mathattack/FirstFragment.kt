@@ -52,7 +52,6 @@ class FirstFragment : Fragment() {
         // Set Main Activity Context
         mainContext = this.activity?.applicationContext
 
-
         // Set listener for the first fragment to receive any stored data from the start fragment.
         setFragmentResultListener("startFragment") { key, bundle ->
             val name = bundle.getString("player_name")
@@ -61,9 +60,18 @@ class FirstFragment : Fragment() {
             Log.d("FIRST_FRAG", mode.toString())
             qMode = mode
             Log.d("FIRST_FRAG", qMode.toString())
-            binding.playerLabel.text = player.getName()
+
+            // Genereate Enemy and Question
             refreshEnemy()
             refreshQuestion()
+
+            // Bind values to titles at top of string for player name, score and enemy health.
+            binding.playerLabel.text = player.getName()
+            binding.playerDisplay.text = player.getHealth().toString()
+            binding.enemyDisplay.text = enemy.getHealth().toString()
+            binding.scoreDisplay.text = player.getScore().toString()
+            binding.playerHealthBar.max = player.getHealth()
+            binding.playerHealthBar.progress = player.getHealth()
         }
 
         _binding = FragmentFirstBinding.inflate(inflater, container, false)
@@ -103,13 +111,6 @@ class FirstFragment : Fragment() {
         binding.refreshButton.setOnClickListener {
             refreshQuestion()
         }
-
-        // Bind values to titles at top of string for player name, score and enemy health.
-        binding.playerDisplay.text = player.getHealth().toString()
-        binding.enemyDisplay.text = enemy.getHealth().toString()
-        binding.scoreDisplay.text = player.getScore().toString()
-        // Show initial question.
-        refreshQuestion()
     }
 
     /**
@@ -123,6 +124,7 @@ class FirstFragment : Fragment() {
         // If the answer is correct, damage the enemy.
         if (answer == enemy.GetQuestion().getCorrectAnswer()) {
             enemy.takeDamage()
+            binding.enemyHealthBar.progress = enemy.getHealth()
             if (enemy.getHealth() < 1) {
                 player.increaseScore()
                 refreshEnemy()
@@ -131,6 +133,7 @@ class FirstFragment : Fragment() {
         } else {
             // If the answer is incorrect damage the player
             player.takeDamage()
+            binding.playerHealthBar.progress = player.getHealth()
             // If the player health is zero, save high score and move to game over screen.
             if (player.getHealth() == 0) {
                 val result = 0
@@ -165,6 +168,8 @@ class FirstFragment : Fragment() {
             1 -> SubtractionEnemy(difficulty)
             else -> SuperEnemy(difficulty)
         }
+        binding.enemyHealthBar.max = enemy.getHealth()
+        binding.enemyHealthBar.progress = enemy.getHealth()
     }
 
     override fun onDestroyView() {
