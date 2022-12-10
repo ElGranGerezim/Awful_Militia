@@ -39,7 +39,7 @@ class FirstFragment : Fragment() {
     // Get the MainActivity context for movement of data between fragments and more.
     private var mainContext: Context? = null
 
-    // Prepare to load in High Score Repository for queries and insets into the database.
+    // Prepare to load in High Score Repository for queries and inserts into the database.
     private var scoreDb: HighScoreRepository? = null
 
 
@@ -76,25 +76,18 @@ class FirstFragment : Fragment() {
 
         // Add a button to screen that will display a possible answer to the question.
         binding.rightButton.setOnClickListener {
-            //Snackbar.make(view, binding.rightButton.text, Snackbar.LENGTH_LONG)
-            //    .setAction("Action", null).show()
-            //findNavController().navigate(R.id.action_FirstFragment_to_SecondFragment)
             val answer = binding.rightButton.text.toString().toInt()
             selectAnswer(answer)
         }
 
         // Add a button to screen left of previous button containing a possible answer.
         binding.leftButton.setOnClickListener {
-            //Snackbar.make(view, binding.leftButton.text, Snackbar.LENGTH_LONG)
-            //    .setAction("Action", null).show()
             val answer = binding.leftButton.text.toString().toInt()
             selectAnswer(answer)
         }
 
         // Add a button between previous buttons containing a possible answer.
         binding.midButton.setOnClickListener {
-            //Snackbar.make(view, binding.midButton.text, Snackbar.LENGTH_LONG)
-            //    .setAction("Action", null).show()
             val answer = binding.midButton.text.toString().toInt()
             selectAnswer(answer)
         }
@@ -114,7 +107,7 @@ class FirstFragment : Fragment() {
 
     /**
      * When an answer is selected check if it is the correct answer and perform an action based on
-     * wether the choice was correct or not.
+     * whether the choice was correct or not.
      *
      * @param answer: Int => The chosen answer by the user.
      */

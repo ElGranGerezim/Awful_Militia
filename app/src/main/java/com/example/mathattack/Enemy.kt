@@ -39,7 +39,7 @@ abstract class Enemy {
 class AdditionEnemy(difficulty: Int) : Enemy() {
     override var question: Question = newQuestion(difficulty)
     override fun newQuestion(difficulty: Int): Question {
-        question = GenerateAdditionQuestion(difficulty)
+        question = generateAdditionQuestion(difficulty)
         return question
     }
 }
@@ -48,7 +48,7 @@ class AdditionEnemy(difficulty: Int) : Enemy() {
 class SubtractionEnemy(difficulty: Int) : Enemy() {
     override var question: Question = newQuestion(difficulty)
     override fun newQuestion(difficulty: Int): Question {
-        question = GenerateSubtractionQuestion(difficulty)
+        question = generateSubtractionQuestion(difficulty)
         return question
     }
 }
@@ -58,10 +58,10 @@ class SuperEnemy(difficulty: Int) : Enemy() {
     override var question: Question = newQuestion(difficulty)
     override fun newQuestion(difficulty: Int): Question {
         if (Random.nextBoolean()) {
-            question = GenerateAdditionQuestion(difficulty)
+            question = generateAdditionQuestion(difficulty)
             return question
         } else {
-            question = GenerateSubtractionQuestion(difficulty)
+            question = generateSubtractionQuestion(difficulty)
             return question
         }
     }
