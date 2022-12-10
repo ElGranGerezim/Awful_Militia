@@ -4,7 +4,7 @@
 
 Welcome to Math Attack! This game will use basic math equations to defeat an enemy. If you answer a question wrong the player will lose health. High Scores are stored so feel free to challenge you friends on how far you will go.
 
-[Software Demo Video](http://youtube.link.goes.here)
+[Software Demo Video](https://youtu.be/JgzCVCxw38M)
 
 ## Development Environment
 
